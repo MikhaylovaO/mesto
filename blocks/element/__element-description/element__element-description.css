@@ -1,0 +1,9 @@
+.element__element-description {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: max-content;
+    margin: -3px 0 0;
+    padding: 0;
+}
