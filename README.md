@@ -17,4 +17,4 @@
 5. @madia screen and (max-width/min-width:px) для адаптивности страницы.
 
 ## Ссылка на сайт.
-Ссылка на проект в GitHub: 
+Ссылка на проект в GitHub: https://mikhaylovao.github.io/mesto/ 
