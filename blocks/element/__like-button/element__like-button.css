@@ -6,7 +6,7 @@
     transition: 0.4s;
     border: none;
     background-color: white;
-    background-image: url(../../../images/like-disabled.png);
+    background-image: url(../../../images/like-dis.svg);
     background-position: 100%;
 }
 

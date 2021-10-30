@@ -1,5 +1,5 @@
 .profile__edit-button {
-    background: black;
+    background-color: rgba(0, 0, 0, 0);
     border: 1px solid #ffffff;
     transition: 0.4s;
     height: 24px;
@@ -7,7 +7,7 @@
     grid-area: edit;
     align-self: end;
     margin-bottom: 8px;
-    background-image: url(../../../images/pencil-icon.png);
+    background-image: url(../../../images/pencil.svg);
     background-position: center;
     background-repeat: no-repeat;
 }

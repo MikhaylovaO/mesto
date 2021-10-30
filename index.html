@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="pages/index.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Mesto</title>
+        <title>Место</title>
     </head>
     <body class="root">
         <div class="page">
@@ -12,11 +12,12 @@
                 <div class="popup__container">
                     <div class="popup__edit-form">
                         <h2 class="popup__edit-title">Редактировать профиль</h2>
-                        <form class="popup__form">
-                            <input class="popup__form popup__form-name" id="name-inp" type="text" placeholder="Жак-Ив Кусто" />
-                            <input class="popup__form popup__form-description" id="desc-inp" type="text" placeholder="Исследователь океана" />
+                        <form class="popup__form" name="submit-form">
+                            <input class="popup__input popup__input_name" name="name" type="text"/>
+                            <input class="popup__input popup__input_description" name="description" type="text"/>
+                            <button class="popup__submit-button">Сохранить</button>
                         </form>
-                        <button class="popup__submit-button">Сохранить</button>
+                        
                     </div>
                     <button class="popup__close-button"></button>
                 </div>
@@ -38,53 +39,53 @@
                 </section>
 
                 <section class="elements">
-                    <div class="element">
+                    <article class="element">
                         <img class="element__mask" src="images/karachaevsk.jpg" alt="Карачаевск" />
                         <div class="element__element-description">
                             <h2 class="element__element-name">Карачаевск</h2>
                             <button class="element__like-button"></button>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="element">
+                    <article class="element">
                         <img class="element__mask" src="images/elbrus.png" alt="Эльбрус" />
                         <div class="element__element-description">
                             <h2 class="element__element-name">Гора Эльбрус</h2>
                             <button class="element__like-button"></button>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="element">
+                    <article class="element">
                         <img class="element__mask" src="images/dombai.png" alt="Домбай" />
                         <div class="element__element-description">
                             <h2 class="element__element-name">Домбай</h2>
                             <button class="element__like-button"></button>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="element">
+                    <article class="element">
                         <img class="element__mask" src="images/elbrus.png" alt="Эльбрус" />
                         <div class="element__element-description">
                             <h2 class="element__element-name">Гора Эльбрус</h2>
                             <button class="element__like-button"></button>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="element">
+                    <article class="element">
                         <img class="element__mask" src="images/dombai.png" alt="Домбай" />
                         <div class="element__element-description">
                             <h2 class="element__element-name">Домбай</h2>
                             <button class="element__like-button"></button>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="element">
+                    <article class="element">
                         <img class="element__mask" src="images/karachaevsk.jpg" alt="Карачаевск" />
                         <div class="element__element-description">
                             <h2 class="element__element-name">Карачаево-Черкесия</h2>
                             <button class="element__like-button"></button>
                         </div>
-                    </div>
+                    </article>
                 </section>
             </main>
 
