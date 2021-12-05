@@ -1,6 +1,13 @@
 .element__mask {
-    width: 282px;
+    min-width: 282px;
+    max-height: 282px;
     margin: 0;
     padding: 0px;
-    display: flex;
+    display: block;
+    align-self: center;
+    overflow: hidden;
+}
+
+.element__mask:hover {
+    cursor: pointer;
 }

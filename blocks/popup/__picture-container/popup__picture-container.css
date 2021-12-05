@@ -1,0 +1,6 @@
+.popup__picture-container {
+    height: fit-content;
+    width: fit-content;
+    position: relative;
+    display: flex;
+}
