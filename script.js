@@ -1,6 +1,6 @@
-const profilePopup =document.querySelector(".popup__content_type_profile");
-const addPopup = document.querySelector(".popup__content_type_add-picture");
-const picturePopup = document.querySelector(".popup__content_type_picture")
+const profilePopup =document.querySelector(".popup__profile");
+const addPopup = document.querySelector(".popup__add-picture");
+const picturePopup = document.querySelector(".popup__popup-picture")
 const editButton = document.querySelector(".profile__edit-button");
 const formElement = document.querySelector(".popup__form"); 
 const nameInput = document.querySelector(".popup__input_type_name");
