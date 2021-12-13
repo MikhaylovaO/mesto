@@ -2,7 +2,8 @@ const profilePopup =document.querySelector(".popup_type_profile");
 const addPopup = document.querySelector(".popup_type_add-picture");
 const picturePopup = document.querySelector(".popup_type_popup-picture")
 const editButton = document.querySelector(".profile__edit-button");
-const formElement = document.querySelector(".popup__form"); 
+const profileForm = profilePopup.querySelector(".popup__form"); 
+const postCreationForm = addPopup.querySelector(".popup__form"); 
 const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_description");
 const picName = document.querySelector(".popup__input_type_pic-name");
@@ -13,11 +14,12 @@ const addButton = document.querySelector(".profile__add-button");
 const cardName  = document.querySelector('.popup__input_type_pic-name');
 const cardLink  = document.querySelector('.popup__input_type_link');
 const formPicElement = document.querySelector('.popup__form_type_create');
-const popup = document.querySelectorAll('.popup');
-const closeButton = document.querySelectorAll('.popup__close-button');
-const createForm = document.querySelector('.popup__form_type_create');
-const profileForm = document.querySelector('.popup__form_type_profile');
+const popups = document.querySelectorAll('.popup');
+const closeButtons = document.querySelectorAll('.popup__close-button');
 const cardsContainer = document.querySelector('.elements');
+const popupPicture = document.querySelector('.popup__picture');
+const popupDescription = document.querySelector('.popup__picture-description');
+const popupContainers = document.querySelectorAll('.popup__container');
 
 //Постоянные карточки
 
@@ -50,13 +52,15 @@ const initialCards = [
 
 // Открытие/закрытие попапа
 
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-} 
+function openPopup(popup) { 
+  popup.classList.add("popup_opened"); 
+  document.addEventListener("keydown", closeOnEsc);
+}  
 
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-}
+function closePopup(popup) { 
+  popup.classList.remove("popup_opened"); 
+  document.removeEventListener("keydown", closeOnEsc);
+} 
 
 //Попап профиль
 
@@ -122,8 +126,8 @@ function createNewPost(el) {
   const deleteButton = cardElement.querySelector('.element__delete-button');
 
   cardElement.querySelector('.element__element-name').textContent = el.place;
-  cardElement.querySelector('.element__mask').src = el.link;
-  cardElement.querySelector('.element__mask').alt = el.place;
+  elementPicture.src = el.link;
+  elementPicture.alt = el.place;
 
   elementPicture.addEventListener("click", handleImgClick);
 
@@ -162,8 +166,7 @@ render();
 function handleImgClick (event) {
   const eventTarget = event.target;
   const cardItem = eventTarget.closest('.element');
-  const popupPicture = document.querySelector('.popup__picture');
-  const popupDescription = document.querySelector('.popup__picture-description');
+
   popupDescription.textContent = cardItem.textContent;
   popupPicture.src = cardItem.querySelector('.element__mask').src;
   popupPicture.alt = cardItem.textContent;
@@ -173,9 +176,9 @@ function handleImgClick (event) {
 
 // Крестик
 
-closeButton.forEach((item) => { 
+closeButtons.forEach((item) => { 
   item.addEventListener("click", (event) => {
-    popup.forEach(closePopup)
+    popups.forEach(closePopup)
     }); 
 }); 
 
@@ -184,88 +187,15 @@ closeButton.forEach((item) => {
 formPicElement.addEventListener("submit", function(evt) {
   evt.preventDefault();
   handlePostAdd();
-  createForm.reset(); 
-});
-
-// Валидация форм
-
-const showError = (form, input, errorMessageText, errorMessageClass, inputErrorClass) => {
-  const errorMessage = form.querySelector(`#${input.id}-error`);
-  errorMessage.textContent = errorMessageText;
-  errorMessage.classList.add(errorMessageClass);
-  input.classList.add(inputErrorClass);
-}
-
-const hideError = (form, input, errorMessageClass, inputErrorClass) => {
-  const errorMessage = form.querySelector(`#${input.id}-error`);
-  errorMessage.textContent = '';
-  errorMessage.classList.remove(errorMessageClass);
-  input.classList.remove(inputErrorClass);
-}
-
-const hasInvalidInput = (inputs) => {
-  return Array.from(inputs).some((el) => !el.validity.valid);
-}
-
-const toggleButtonError = (inputs, button, inactiveButtonClass) => {
-  if (hasInvalidInput(inputs)) {
-    button.classList.add(inactiveButtonClass);
-    button.disabled = true;
-  } else {
-    button.classList.remove(inactiveButtonClass);
-    button.disabled = false;
-  }
-}
-
-const checkIfInputValid = (form, input, {inputErrorClass, errorClass}) => {
-  if (!input.validity.valid) {
-    showError(form, input, input.validationMessage, errorClass, inputErrorClass);
-  } else {
-    hideError(form, input, inputErrorClass, errorClass);
-  }
-}
-
-const setInputListeners = (form, {inputSelector, submitButtonSelector, inactiveButtonClass, ...rest}) => {
-  const inputs = form.querySelectorAll(inputSelector);
-  const submitButton = form.querySelector(submitButtonSelector);
-
-  inputs.forEach((input) => {
-    input.addEventListener('input', () => {
-      checkIfInputValid(form, input, rest);
-      toggleButtonError(inputs, submitButton, inactiveButtonClass);
-    });
-  });
-}
-
-const enableValidation = ({formSelector, ...rest}) => {
-  const forms = document.querySelectorAll(formSelector);
-
-  forms.forEach((form) => {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-    });
-
-    setInputListeners(form, rest);
-  })
-}
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error'
+  postCreationForm.reset(); 
 });
 
 // Закрытие на overlay
 
-const popupContainer = document.querySelectorAll('.popup__container');
-
-popupContainer.forEach((element) => {
-document.addEventListener('click', function(evt) {
+popupContainers.forEach((element) => {
+  element.addEventListener('click', function(evt) {
   if (evt.target === element) {
-    popup.forEach((element) => {
+    popups.forEach((element) => {
       closePopup(element);
     })
   }
@@ -276,7 +206,7 @@ document.addEventListener('click', function(evt) {
 
 function closeOnEsc(evt) {
   if (evt.key === 'Escape' || evt.key === 'Esc') {
-    popup.forEach((element) => {
+    popups.forEach((element) => {
     closePopup(element);
     })  
   }
@@ -286,8 +216,6 @@ function closeOnEsc(evt) {
 
 editButton.addEventListener("click", showProfilePopup);
 
-formElement.addEventListener("submit", profileFormSubmitHandler); 
+profileForm.addEventListener("submit", profileFormSubmitHandler);  
 
 addButton.addEventListener("click", showAddPopup);
-
-document.addEventListener("keydown", closeOnEsc);
