@@ -1,6 +1,8 @@
+import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
+
 const profilePopup =document.querySelector(".popup_type_profile");
 const addPopup = document.querySelector(".popup_type_add-picture");
-const picturePopup = document.querySelector(".popup_type_popup-picture")
 const editButton = document.querySelector(".profile__edit-button");
 const profileForm = profilePopup.querySelector(".popup__form"); 
 const postCreationForm = addPopup.querySelector(".popup__form"); 
@@ -17,8 +19,6 @@ const formPicElement = document.querySelector('.popup__form_type_create');
 const popups = document.querySelectorAll('.popup');
 const closeButtons = document.querySelectorAll('.popup__close-button');
 const cardsContainer = document.querySelector('.elements');
-const popupPicture = document.querySelector('.popup__picture');
-const popupDescription = document.querySelector('.popup__picture-description');
 const popupContainers = document.querySelectorAll('.popup__container');
 
 //Постоянные карточки
@@ -116,64 +116,6 @@ function profileFormSubmitHandler(evt) {
   closePopup(profilePopup);
 }
 
-// Карточки
-
-function createNewPost(el) {
-  const cardTemplate = document.querySelector('#cardTemplate').content;
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  const likeButton = cardElement.querySelector(".element__like-button");
-  const elementPicture = cardElement.querySelector('.element__mask');
-  const deleteButton = cardElement.querySelector('.element__delete-button');
-
-  cardElement.querySelector('.element__element-name').textContent = el.place;
-  elementPicture.src = el.link;
-  elementPicture.alt = el.place;
-
-  elementPicture.addEventListener("click", handleImgClick);
-
-  likeButton.addEventListener("click", (event) => {
-    likeButton.classList.toggle("element__like-button_active");
-  });
-
-  deleteButton.addEventListener("click", (event) => {
-    event.target.parentElement.remove();
-  });
-
-  return cardElement;
-}
-
-function handlePostAdd(evt) {
-  const postText = cardName.value;
-  const postLink = cardLink.value;
-  const newCard = createNewPost({place: postText, link: postLink});
-
-  cardsContainer.prepend(newCard);
-
-  closePopup(addPopup);
-}
-
-function render() {
-  const htmlCard = initialCards.map((el) => {
-    return createNewPost(el);
-  });
-  cardsContainer.append(...htmlCard);
-}
-
-render();
-
-// Попап-картинка
-
-function handleImgClick (event) {
-  const eventTarget = event.target;
-  const cardItem = eventTarget.closest('.element');
-
-  popupDescription.textContent = cardItem.textContent;
-  popupPicture.src = cardItem.querySelector('.element__mask').src;
-  popupPicture.alt = cardItem.textContent;
-
-  openPopup(picturePopup);
-}
-
 // Крестик
 
 closeButtons.forEach((item) => { 
@@ -183,6 +125,26 @@ closeButtons.forEach((item) => {
 }); 
 
 // Добавление поста
+
+function createCard(data, cardSelector) {
+  const card = new Card(data, cardSelector);
+  return card;
+};
+
+initialCards.forEach((data) => {
+  const htmlCard = createCard(data, '.template');
+  cardsContainer.append(htmlCard.generateCard()); 
+})
+
+function handlePostAdd(evt) { 
+  const postText = cardName.value; 
+  const postLink = cardLink.value;
+  const newCard = createCard({place: postText, link: postLink}, '.template'); 
+
+  cardsContainer.prepend(newCard.generateCard()); 
+
+  closePopup(addPopup); 
+} 
 
 formPicElement.addEventListener("submit", function(evt) {
   evt.preventDefault();
@@ -212,6 +174,23 @@ function closeOnEsc(evt) {
   }
 }
 
+// Валидация форм
+
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error'
+}
+
+const profileFormValidator = new FormValidator(profileForm, config);
+const postCreationFormValidator = new FormValidator(postCreationForm, config);
+
+profileFormValidator.enableValidation();
+postCreationFormValidator.enableValidation();
+
 // Слушатели
 
 editButton.addEventListener("click", showProfilePopup);
@@ -219,3 +198,6 @@ editButton.addEventListener("click", showProfilePopup);
 profileForm.addEventListener("submit", profileFormSubmitHandler);  
 
 addButton.addEventListener("click", showAddPopup);
+
+
+
