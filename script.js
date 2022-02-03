@@ -21,6 +21,7 @@ const popups = document.querySelectorAll('.popup');
 const closeButtons = document.querySelectorAll('.popup__close-button');
 const cardsContainer = document.querySelector('.elements');
 const popupContainers = document.querySelectorAll('.popup__container');
+const profileSubmitButton = profilePopup.querySelector('.popup__button');
 
 // Открытие/закрытие попапа
 
@@ -39,6 +40,8 @@ function closePopup(popup) {
 //Попап профиль
 
 function showProfilePopup() {
+    profileFormValidator.resetErrors();
+    profileFormValidator.enableSubmitButton();
 
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
@@ -49,17 +52,12 @@ function showProfilePopup() {
 //Попап добавления
 
 function showAddPopup() {
-  const addSubmitButton = addPopup.querySelector('.popup__button');
+  postCreationFormValidator.resetErrors();
+  postCreationFormValidator.disableSubmitButton();
 
   postCreationForm.reset();
   openPopup(addPopup);
-  makeButtonInvalid(addSubmitButton); 
 };
-
-function makeButtonInvalid(el) { 
-  el.classList.add('.popup__button_disabled'); 
-  el.disabled = true; 
-} 
 
 //Сохранение профиля
 
