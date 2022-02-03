@@ -1,5 +1,6 @@
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
+import {initialCards} from "./InitialCards.js";
 
 const profilePopup =document.querySelector(".popup_type_profile");
 const addPopup = document.querySelector(".popup_type_add-picture");
@@ -21,41 +22,14 @@ const closeButtons = document.querySelectorAll('.popup__close-button');
 const cardsContainer = document.querySelector('.elements');
 const popupContainers = document.querySelectorAll('.popup__container');
 
-//Постоянные карточки
-
-const initialCards = [
-  {
-    place: 'Архыз',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    place: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
- {
-    place: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
- },
-{
-   place: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
- {
-    place: 'Холмогорский район',
-   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-},
-{
-  place: 'Байкал',
- link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-}
-];
-
 // Открытие/закрытие попапа
 
 function openPopup(popup) { 
   popup.classList.add("popup_opened"); 
   document.addEventListener("keydown", closeOnEsc);
 }  
+
+export {openPopup}
 
 function closePopup(popup) { 
   popup.classList.remove("popup_opened"); 
@@ -65,45 +39,27 @@ function closePopup(popup) {
 //Попап профиль
 
 function showProfilePopup() {
-    profileForm.reset();
-    const profileErrorMessage = profilePopup.querySelectorAll('.popup__input-error');
-    const profileSubmitButton = profilePopup.querySelector('.popup__button');
 
-    makeButtonValid(profileSubmitButton);
-
-    profileErrorMessage.forEach((el) => {
-      deleteErrorMessage(el);
-    });
-    
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
 
     openPopup(profilePopup);
 };
 
-function deleteErrorMessage(el) {
-  el.textContent = '';
-  el.classList.remove('.popup__input-error');
-}
-
-function makeButtonValid(el) {
-  el.classList.remove('.popup__button_disabled');
-  el.disabled = false;
-}
-
 //Попап добавления
 
 function showAddPopup() {
   const addSubmitButton = addPopup.querySelector('.popup__button');
 
+  postCreationForm.reset();
   openPopup(addPopup);
-  makeButtonInvalid(addSubmitButton);
+  makeButtonInvalid(addSubmitButton); 
 };
 
-function makeButtonInvalid(el) {
-  el.classList.add('.popup__button_disabled');
-  el.disabled = true;
-}
+function makeButtonInvalid(el) { 
+  el.classList.add('.popup__button_disabled'); 
+  el.disabled = true; 
+} 
 
 //Сохранение профиля
 
@@ -128,12 +84,12 @@ closeButtons.forEach((item) => {
 
 function createCard(data, cardSelector) {
   const card = new Card(data, cardSelector);
-  return card;
+  return card.generateCard();
 };
 
 initialCards.forEach((data) => {
   const htmlCard = createCard(data, '.template');
-  cardsContainer.append(htmlCard.generateCard()); 
+  cardsContainer.append(htmlCard); 
 })
 
 function handlePostAdd(evt) { 
@@ -141,7 +97,7 @@ function handlePostAdd(evt) {
   const postLink = cardLink.value;
   const newCard = createCard({place: postText, link: postLink}, '.template'); 
 
-  cardsContainer.prepend(newCard.generateCard()); 
+  cardsContainer.prepend(newCard); 
 
   closePopup(addPopup); 
 } 

@@ -1,3 +1,5 @@
+import {openPopup} from "./script.js"
+
 export default class Card {
     constructor(data, cardSelector) {
         this._link = data.link;
@@ -25,27 +27,25 @@ export default class Card {
 
   // Отдельные функции
   
-  _toggleLikeButton(evt) {
-    evt.target.classList.toggle("element__like-button_active");
+  _toggleLikeButton = () => {
+    this._likeButton.classList.toggle("element__like-button_active");
   }
 
-  _deleteCard(event) {
-    event.target.parentElement.remove(); 
+  _deleteCard = () => {
+    this._element.remove();
+    this._element = null;
   }
 
-  _handleImgClick (data) { 
+  _handleImgClick = () => { 
     this._popupPicture = document.querySelector('.popup__picture');
     this._popupDescription = document.querySelector('.popup__picture-description');
     this._picturePopup = document.querySelector(".popup_type_popup-picture");
-
-    const eventTarget = data.target; 
-    const cardItem = eventTarget.closest('.element'); 
   
-    this._popupDescription.textContent = cardItem.textContent;
-    this._popupPicture.src = cardItem.querySelector('.element__mask').src; 
-    this._popupPicture.alt = cardItem.textContent; 
+    this._popupDescription.textContent = this._place;
+    this._popupPicture.src = this._link;  
+    this._popupPicture.alt = this._place;  
   
-    this._picturePopup.classList.add("popup_opened");  
+    openPopup(this._picturePopup) 
   }
 
   generateCard() {
