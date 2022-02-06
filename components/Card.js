@@ -1,13 +1,14 @@
-import {openPopup} from "./script.js"
+/*import {openPopup} from "../script.js"*/
 
 export default class Card {
-    constructor(data, cardSelector) {
+    constructor(data, cardSelector, {handleCardClick}) {
         this._link = data.link;
         this._place = data.place;
         this._cardSelector = cardSelector;
+        this._handleCardClick = handleCardClick;
       }
 
-    _getTemplate() {
+      _getTemplate() { 
         const cardElement = document
         .querySelector(this._cardSelector)
         .content
@@ -15,14 +16,16 @@ export default class Card {
         .cloneNode(true);
 
         return cardElement;
-    }
+    } 
 
 // Вешаем ивенты
 
   _setEventListeners() {
     this._likeButton.addEventListener('click', this._toggleLikeButton);
     this._deleteButton.addEventListener('click', this._deleteCard);
-    this._elementPicture.addEventListener("click", this._handleImgClick);
+    this._elementPicture.addEventListener("click", () => {
+      this._handleCardClick(this._place, this._link);
+    })
   };
 
   // Отдельные функции
@@ -34,18 +37,6 @@ export default class Card {
   _deleteCard = () => {
     this._element.remove();
     this._element = null;
-  }
-
-  _handleImgClick = () => { 
-    this._popupPicture = document.querySelector('.popup__picture');
-    this._popupDescription = document.querySelector('.popup__picture-description');
-    this._picturePopup = document.querySelector(".popup_type_popup-picture");
-  
-    this._popupDescription.textContent = this._place;
-    this._popupPicture.src = this._link;  
-    this._popupPicture.alt = this._place;  
-  
-    openPopup(this._picturePopup) 
   }
 
   generateCard() {
