@@ -1,40 +1,32 @@
-import FormValidator from "./components/FormValidator.js";
-import Card from "./components/Card.js";
-import {initialCards} from "./InitialCards.js";
-import Section from "./components/Section.js";
-import PopupWithImage from "./components/PopupWithImage.js";
-import PopupWithForm from "./components/PopupWithForm.js";
-import UserInfo from "./components/UserInfo.js";
+import './index.css';
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import {initialCards} from "../InitialCards.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
 
-/*const profilePopup = document.querySelector(".popup_type_profile");
-const addPopup = document.querySelector(".popup_type_add-picture");*/
 const editButton = document.querySelector(".profile__edit-button");
 const profileForm = document.querySelector(".popup__form_type_profile"); 
 const postCreationForm = document.querySelector(".popup__form_type_create"); 
 const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_description");
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__profile-description");
 const addButton = document.querySelector(".profile__add-button");
 const cardName  = document.querySelector('.popup__input_type_pic-name');
 const cardLink  = document.querySelector('.popup__input_type_link');
-const formPicElement = document.querySelector('.popup__form_type_create');
-const popups = document.querySelectorAll('.popup');
-const closeButtons = document.querySelectorAll('.popup__close-button');
 const cardsContainer = document.querySelector('.elements');
-/*const popupContainers = document.querySelectorAll('.popup__container');
-const profileSubmitButton = profilePopup.querySelector('.popup__button');
-const popupPicture = document.querySelector('.popup__picture');
-const popupDescription = document.querySelector('.popup__picture-description');*/
-/*const picturePopup = document.querySelector(".popup_type_popup-picture");*/
-
+const profileSelectors = {
+  profileName: '.profile__name', 
+  profileDescription: '.profile__profile-description',
+}
 
 //Попап профиль
 
-const userInfo = new UserInfo({nameElement: profileName, jobElement: profileDescription});
+const userInfo = new UserInfo(profileSelectors);
 
-editButton.addEventListener("click", () => {
+editButton.addEventListener("click", function() {
   profilePopup.open();
   
   const userDescription = userInfo.getUserInfo();
@@ -46,25 +38,16 @@ editButton.addEventListener("click", () => {
   profileFormValidator.enableSubmitButton();
 });
 
-const profilePopup = new PopupWithForm(".popup_type_profile", {
-  formSubmitHandler: profileFormSubmitHandler}
-/*{  formSubmitHandler: ({name, job}) => {
-      userInfo.setUserInfo({name, job});  
-      profilePopup.close();
-  }
-}*/);
+const profileFormSubmitHandler = () => {
 
-/*profileForm.addEventListener("submit", profileFormSubmitHandler); */
-
-function profileFormSubmitHandler(evt) {
-  /*evt.preventDefault();*/
-  userInfo.setUserInfo();  
-/*
-  profileName.textContent = nameInput.value;
-  profileDescription.textContent = jobInput.value;
-*/
+  userInfo.setUserInfo({
+    name: nameInput.value,
+    job: jobInput.value
+  });
   profilePopup.close();
 }
+
+const profilePopup = new PopupWithForm('.popup_type_profile', profileFormSubmitHandler)
 
 profilePopup.setEventListeners();
 
@@ -74,15 +57,13 @@ const picturePopup = new PopupWithImage(".popup_type_popup-picture");
 
 // Добавление поста
 
-const addPopup = new PopupWithForm(".popup_type_add-picture", {
-  formSubmitHandler: handlePostAdd
-});
-
 addButton.addEventListener("click", () => {
   addPopup.open();
   postCreationFormValidator.resetErrors();
   postCreationFormValidator.disableSubmitButton();
 });
+
+const addPopup = new PopupWithForm(".popup_type_add-picture", handlePostAdd);
 
 function createCard(data, cardSelector) {
   const card = new Card(data, cardSelector, {
@@ -93,8 +74,7 @@ function createCard(data, cardSelector) {
 return card.generateCard();
 };
 
-function handlePostAdd(evt) { 
-evt.preventDefault();
+function handlePostAdd() { 
 
 const postText = cardName.value; 
 const postLink = cardLink.value;
@@ -107,7 +87,6 @@ addPopup.close();
 } 
 
 addPopup.setEventListeners();
-
 
 // Разметка начальных карточек
 
@@ -139,10 +118,4 @@ const postCreationFormValidator = new FormValidator(postCreationForm, config);
 
 profileFormValidator.enableValidation();
 postCreationFormValidator.enableValidation();
-
-// Слушатели
-
-
-
-
 
