@@ -1,4 +1,7 @@
+<<<<<<< HEAD:src/pages/index.js
 import './index.css';
+=======
+>>>>>>> 6e819d74622392cff53bc330169cb1a58fcccec3:script.js
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import {initialCards} from "../InitialCards.js";
@@ -7,7 +10,10 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
+<<<<<<< HEAD:src/pages/index.js
 
+=======
+>>>>>>> 6e819d74622392cff53bc330169cb1a58fcccec3:script.js
 const editButton = document.querySelector(".profile__edit-button");
 const profileForm = document.querySelector(".popup__form_type_profile"); 
 const postCreationForm = document.querySelector(".popup__form_type_create"); 
