@@ -59,12 +59,9 @@ const addPopup = new PopupWithForm(".popup_type_add-picture", {
     const newCard = createCard(data, '.template');
 
     defaultCardsList.prependItem(newCard); 
-    postCreationForm.reset(); 
   
     addPopup.close(); 
   } });
-
-console.log(addPopup);
 
 function createCard(data, cardSelector) {
   const card = new Card(data, cardSelector, {
