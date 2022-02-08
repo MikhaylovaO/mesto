@@ -1,26 +1,21 @@
 import './index.css';
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
-import {initialCards} from "../InitialCards.js";
+import {initialCards} from "../utils/InitialCards.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-
-
-const editButton = document.querySelector(".profile__edit-button");
-const profileForm = document.querySelector(".popup__form_type_profile"); 
-const postCreationForm = document.querySelector(".popup__form_type_create"); 
-const nameInput = document.querySelector(".popup__input_type_name");
-const jobInput = document.querySelector(".popup__input_type_description");
-const addButton = document.querySelector(".profile__add-button");
-const cardName  = document.querySelector('.popup__input_type_pic-name');
-const cardLink  = document.querySelector('.popup__input_type_link');
-const cardsContainer = document.querySelector('.elements');
-const profileSelectors = {
-  profileName: '.profile__name', 
-  profileDescription: '.profile__profile-description',
-}
+import {editButton, 
+  profileForm, 
+  postCreationForm, 
+  nameInput, 
+  jobInput, 
+  addButton, 
+  cardsContainer,
+  profileSelectors,
+  config
+} from "../utils/constants.js";
 
 //Попап профиль
 
@@ -38,16 +33,12 @@ editButton.addEventListener("click", function() {
   profileFormValidator.enableSubmitButton();
 });
 
-const profileFormSubmitHandler = () => {
-
-  userInfo.setUserInfo({
-    name: nameInput.value,
-    job: jobInput.value
-  });
+const profilePopup = new PopupWithForm('.popup_type_profile', {
+  submitHandler: (data) => {
+  userInfo.setUserInfo(data);
   profilePopup.close();
 }
-
-const profilePopup = new PopupWithForm('.popup_type_profile', profileFormSubmitHandler)
+})
 
 profilePopup.setEventListeners();
 
@@ -63,7 +54,17 @@ addButton.addEventListener("click", () => {
   postCreationFormValidator.disableSubmitButton();
 });
 
-const addPopup = new PopupWithForm(".popup_type_add-picture", handlePostAdd);
+const addPopup = new PopupWithForm(".popup_type_add-picture", {
+  submitHandler: (data) => {
+    const newCard = createCard(data, '.template');
+
+    defaultCardsList.prependItem(newCard); 
+    postCreationForm.reset(); 
+  
+    addPopup.close(); 
+  } });
+
+console.log(addPopup);
 
 function createCard(data, cardSelector) {
   const card = new Card(data, cardSelector, {
@@ -73,18 +74,6 @@ function createCard(data, cardSelector) {
     })
 return card.generateCard();
 };
-
-function handlePostAdd() { 
-
-const postText = cardName.value; 
-const postLink = cardLink.value;
-const newCard = createCard({place: postText, link: postLink}, '.template'); 
-
-cardsContainer.prepend(newCard); 
-postCreationForm.reset(); 
-
-addPopup.close(); 
-} 
 
 addPopup.setEventListeners();
 
@@ -103,15 +92,6 @@ addPopup.setEventListeners();
   defaultCardsList.renderItems();
 
 // Валидация форм
-
-const config = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error'
-}
 
 const profileFormValidator = new FormValidator(profileForm, config);
 const postCreationFormValidator = new FormValidator(postCreationForm, config);

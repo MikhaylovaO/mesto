@@ -8,7 +8,7 @@ module.exports = {
                     edge: '17',
                     ie: '11',
                     firefox: '50',
-                    chrome: '97',
+                    chrome: '60',
                     safari: '11.1'
                 }
             }
