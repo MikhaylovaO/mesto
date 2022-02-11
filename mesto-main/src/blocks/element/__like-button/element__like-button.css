@@ -1,8 +1,11 @@
 .element__like-button {
+    position: absolute;
+    right:20px;
+    top: 300px;
     width: 22px;
     height: 19px;
-    margin-right: 30px;
-    align-self: center;
+    /*margin-right: 30px;
+    align-self: center;*/
     transition: 0.4s;
     border: none;
     background-color: white;

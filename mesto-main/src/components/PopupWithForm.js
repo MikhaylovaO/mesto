@@ -6,6 +6,7 @@ export default class PopupWithForm extends Popup {
         this._submitHandler = submitHandler;
         this._popupForm = this._popup.querySelector('.popup__form');
         this._inputsList = this._popup.querySelectorAll('.popup__input');
+        this._submitButton = this._popup.querySelector('.popup__button');
     }
 
     _getInputValues() {   
@@ -14,6 +15,10 @@ export default class PopupWithForm extends Popup {
           this._inputValue[input.name] = input.value;
         });
         return this._inputValue;
+      }
+
+      toggleButtonText(text) {
+        this._submitButton.textContent = text;
       }
 
       setEventListeners() { 
