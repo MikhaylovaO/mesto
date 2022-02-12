@@ -45,11 +45,6 @@ generateCard() {
 
   // Отдельные функции
 
-  deleteCard() {
-    this._element.remove();
-    this._element = null;
-  }
-
   checkIfLiked() {
     if (this._likeButton.classList.contains('element__like-button_active'))
     return true
@@ -97,7 +92,7 @@ _showLikes() {
       this._deleteButton.remove();
     } else {
       this._deleteButton.addEventListener('click', () => {
-        this._handleCardDelete(this._id, this._element);
+        this._handleCardDelete(this._cardId, this._element);
       })
     };
     

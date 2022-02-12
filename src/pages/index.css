@@ -11,10 +11,14 @@
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/profile/__avatar-container/profile__avatar-container.css);
 @import url(../blocks/profile/__avatar-edit/profile__avatar-edit.css);
+@import url(../blocks/popup/__edit-title/_type/_confirmation/popup__edit-title_type_confirmation.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__input-error/popup__input-error.css);
+@import url(../blocks/popup/__close-button/_type/_delete/popup__close-button_type_delete.css);
+@import url(../blocks/popup/__button/_type/_submit-avatar/popup__button_type_submit-avatar.css);
 @import url(../blocks/popup/__button/popup__button.css);
 @import url(../blocks/popup/_type/_popup-picture/popup_type_popup-picture.css);
+@import url(../blocks/popup/__button/_type/_delete/popup__button_type_delete.css);
 @import url(../blocks/popup/__picture-popup/popup__picture-popup.css);
 @import url(../blocks/popup/__input/_type/_avatar/popup__input_type_avatar.css);
 @import url(../blocks/popup/__picture/popup__picture.css);

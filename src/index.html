@@ -43,12 +43,12 @@
             <div class="popup popup_type_delete-picture">
                 <div class="popup__container">
                     <div class="popup__edit-form">
-                        <h2 class="popup__edit-title">Вы уверены?</h2>
+                        <h2 class="popup__edit-title popup__edit-title_type_confirmation">Вы уверены?</h2>
                         <form class="popup__form popup__form_type_delete" name="submit-form" novalidate>
                             <button class="popup__button popup__button_type_delete" type="submit">Да</button>
                         </form>
                     </div>
-                    <button class="popup__close-button" type="button"></button>
+                    <button class="popup__close-button popup__close-button_type_delete" type="button"></button>
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
                         <form class="popup__form popup__form_type_avatar" name="submit-form" novalidate>
                             <input class="popup__input popup__input_type_avatar" id='link-input' placeholder="Ссылка на картинку" type="url" name="avatar" required />
                             <span class="popup__input-error popup__input-error_type_avatar" id="link-input-error"></span>
-                            <button class="popup__button popup__button_type_submit" type="submit">Сохранить</button>
+                            <button class="popup__button popup__button_type_submit-avatar" type="submit">Сохранить</button>
                         </form>
                     </div>
                     <button class="popup__close-button" type="button"></button>

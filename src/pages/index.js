@@ -114,6 +114,8 @@ addButton.addEventListener("click", () => {
 
 const deletePopup = new PopupWithDelete('.popup_type_delete-picture', {
   handleSubmitCallback: deleteCardHandler});
+deletePopup.setEventListeners();
+
 
 const deleteCardHandler = () => {
   console.log('deleteCardHandler');
@@ -127,13 +129,13 @@ function createCard(values) {
     handleCardClick: (name, link) => {
       picturePopup.open(name, link)
     },
-    handleCardDelete: (card) => {
+    handleCardDelete: (cardId, card) => {
       deletePopup.open();
       deletePopup.setSubmitAction(() => {
         deletePopup.toggleButtonText('Удаление...');
-        api.deleteCard(card.cardId)
+        api.deleteCard(cardId)
         .then(() => {
-        card.deleteCard();
+          card.remove();
         deletePopup.close();
         })
         .finally(() => {
@@ -154,7 +156,6 @@ function createCard(values) {
     userId: userInfo.getUserId()
     }, 
     '.template')
-
 return card.generateCard();
 };
 

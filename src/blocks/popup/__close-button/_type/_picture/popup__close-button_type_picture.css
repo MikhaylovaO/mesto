@@ -2,7 +2,6 @@
     position: absolute;
     top: 0;
     right: 0;
-    /*как сделать крестик относительно размера изображения без отрицательного margin, не додумалась*/
     margin-top: -40px;
     margin-right: -40px;
 }
