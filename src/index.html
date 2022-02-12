@@ -57,8 +57,8 @@
                     <div class="popup__edit-form">
                         <h2 class="popup__edit-title">Обновить аватар</h2>
                         <form class="popup__form popup__form_type_avatar" name="submit-form" novalidate>
-                            <input class="popup__input popup__input_type_avatar" id='link-input' placeholder="Ссылка на картинку" type="url" name="avatar" required />
-                            <span class="popup__input-error popup__input-error_type_avatar" id="link-input-error"></span>
+                            <input class="popup__input popup__input_type_avatar" id='link-input-avatar' placeholder="Ссылка на картинку" type="url" name="avatar" required />
+                            <span class="popup__input-error popup__input-error_type_avatar" id="link-input-avatar-error"></span>
                             <button class="popup__button popup__button_type_submit-avatar" type="submit">Сохранить</button>
                         </form>
                     </div>
@@ -86,7 +86,7 @@
                 <section class="profile">
                     <div class="profile__profile-info">
                         <button class="profile__avatar-container" type="button">
-                            <img class="profile__avatar" src="" alt = "аватар">
+                            <img class="profile__avatar" src="#" alt = "аватар">
                             <img class="profile__avatar-edit" src="<%=require('./images/pencil.svg')%>" alt = "редактирование аватара">
                         </button>
                         <h1 class="profile__name" id="profileName"></h1>
