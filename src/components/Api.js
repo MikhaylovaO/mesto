@@ -17,7 +17,6 @@ export default class Api {
           headers: this._headers,
         })
           .then(this._checkResponse)
-          .catch(err => this._errorHandler(err));
       }
 
       getUserInfo() {
@@ -26,7 +25,6 @@ export default class Api {
           headers: this._headers,
         })
           .then(this._checkResponse)
-          .catch(err => this._errorHandler(err));
       }
 
       editProfile(name, about) {
@@ -39,7 +37,6 @@ export default class Api {
           })
         })
           .then(this._checkResponse)
-          .catch(err => this._errorHandler(err));
       }
 
       editAvatar(avatar) {
@@ -51,7 +48,6 @@ export default class Api {
           })
         })
           .then(this._checkResponse)
-          .catch(err => this._errorHandler(err));
       }
 
       postNewCard(name, link) {
@@ -64,7 +60,6 @@ export default class Api {
           })
         })
           .then(this._checkResponse)
-          .catch(err => this._errorHandler(err));
       }
 
       likeCard(cardId) {
@@ -73,7 +68,6 @@ export default class Api {
           headers: this._headers,
         })
           .then(this._checkResponse)
-          .catch(err => this._errorHandler(err));
       }
 
       removeLike(cardId) {
@@ -82,7 +76,6 @@ export default class Api {
           headers: this._headers,
         })
           .then(this._checkResponse)
-          .catch(err => this._errorHandler(err));
       }
 
       deleteCard(cardId) {
@@ -91,11 +84,6 @@ export default class Api {
           headers: this._headers,
         })
           .then(this._checkResponse)
-          .catch(err => this._errorHandler(err));
-      }
-
-      _errorHandler(err) {
-        console.log(err);
       }
 }
 

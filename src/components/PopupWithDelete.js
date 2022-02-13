@@ -16,11 +16,16 @@ export default class PopupWithDelete extends Popup {
         this._handleSubmitCallback = action;
       }
 
-     /* open(card, cardId) {
-        super.open();
-        this._card = card;
-        this._cardId = cardId;
-      }*/
+      _removeEventListeners() {
+        this._popupForm.removeEventListener('submit', () => {
+          this._handleSubmitCallback(this._submitButton);
+        })
+      }
+
+      close() {
+        super.close();
+        this._removeEventListeners();
+      }
 
       setEventListeners() {
         this._popupForm.addEventListener('submit', (evt) => {

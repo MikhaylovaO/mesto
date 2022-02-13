@@ -38,7 +38,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     userInfo.setUserInfo(res[0]);
     cards.renderItems(res[1]); 
   })
- /* .catch((err) => console.log(err));*/
+  .catch((err) => console.log(err));
 
 // Получаем данные пользователя с сервера
 
@@ -65,6 +65,7 @@ const profilePopup = new PopupWithForm('.popup_type_profile', {
       userInfo.setUserInfo(data);
       profilePopup.close();
     })
+    .catch((err) => console.log(err))
     .finally(() => {
       profilePopup.toggleButtonText("Сохранить")
     })
@@ -98,6 +99,7 @@ const addPopup = new PopupWithForm(".popup_type_add-picture", {
       cards.prependItem(newCard); 
       addPopup.close(); 
     })
+    .catch((err) => console.log(err))
     .finally(() => {
       addPopup.toggleButtonText('Создать');
     })  
@@ -114,8 +116,6 @@ addButton.addEventListener("click", () => {
 
 const deletePopup = new PopupWithDelete('.popup_type_delete-picture', {
   handleSubmitCallback: deleteCardHandler});
-deletePopup.setEventListeners();
-
 
 const deleteCardHandler = () => {
   console.log('deleteCardHandler');
@@ -138,6 +138,7 @@ function createCard(values) {
           card.remove();
         deletePopup.close();
         })
+        .catch((err) => console.log(err))
         .finally(() => {
           deletePopup.toggleButtonText('Да');
         })
@@ -147,10 +148,12 @@ function createCard(values) {
       if (card.checkIfLiked()) {
         api.removeLike(cardId)
         .then(card.updateLikes)
+        .catch((err) => console.log(err))
       }
       else {
         api.likeCard(cardId)
         .then(card.updateLikes)
+        .catch((err) => console.log(err))
       }
     },
     userId: userInfo.getUserId()
@@ -169,6 +172,7 @@ const avatarPopup = new PopupWithForm(".popup_type_avatar", {
       userInfo.setUserInfo(data);
       avatarPopup.close();
     })
+    .catch((err) => console.log(err))
     .finally(() => {
       avatarPopup.toggleButtonText("Сохранить");
     })
